@@ -11,6 +11,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TextField,
@@ -96,8 +97,8 @@ export default function Environment() {
           <Card>
             <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
               <Typography variant="subtitle1">近 24 小时趋势 · {room?.name}</Typography>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <TextField select size="small" value={roomId} onChange={(e) => setRoomId(e.target.value)} sx={{ minWidth: 160 }}>
+              <Stack direction="row" spacing={1} alignItems="center" useFlexGap flexWrap="wrap">
+                <TextField select size="small" value={roomId} onChange={(e) => setRoomId(e.target.value)} sx={{ minWidth: { xs: 120, sm: 160 } }}>
                   {rooms.map((r) => (
                     <MenuItem key={r.id} value={r.id}>
                       {r.name}
@@ -140,37 +141,39 @@ export default function Environment() {
               <Typography variant="subtitle1">环境告警</Typography>
             </Box>
             <Divider />
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>库房</TableCell>
-                  <TableCell>类型</TableCell>
-                  <TableCell>级别</TableCell>
-                  <TableCell>状态</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {envAlerts.map((a) => (
-                  <TableRow key={a.id} hover>
-                    <TableCell>{a.target}</TableCell>
-                    <TableCell>{a.type}</TableCell>
-                    <TableCell>
-                      <StatusChip label={a.level} />
-                    </TableCell>
-                    <TableCell>
-                      <StatusChip label={a.status} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-                {envAlerts.length === 0 && (
+            <TableContainer>
+              <Table size="small" sx={{ minWidth: 420 }}>
+                <TableHead>
                   <TableRow>
-                    <TableCell colSpan={4} align="center" sx={{ py: 3, color: 'text.secondary' }}>
-                      暂无环境告警
-                    </TableCell>
+                    <TableCell>库房</TableCell>
+                    <TableCell>类型</TableCell>
+                    <TableCell>级别</TableCell>
+                    <TableCell>状态</TableCell>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {envAlerts.map((a) => (
+                    <TableRow key={a.id} hover>
+                      <TableCell sx={{ whiteSpace: 'nowrap' }}>{a.target}</TableCell>
+                      <TableCell sx={{ whiteSpace: 'nowrap' }}>{a.type}</TableCell>
+                      <TableCell>
+                        <StatusChip label={a.level} />
+                      </TableCell>
+                      <TableCell>
+                        <StatusChip label={a.status} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {envAlerts.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={4} align="center" sx={{ py: 3, color: 'text.secondary' }}>
+                        暂无环境告警
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Card>
         </Grid>
       </Grid>

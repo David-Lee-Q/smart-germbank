@@ -169,7 +169,7 @@ export default function Inventory() {
         {tab === 0 ? (
           <>
             <TableContainer>
-              <Table size="small">
+              <Table size="small" sx={{ minWidth: 1120 }}>
                 <TableHead>
                   <TableRow>
                     <TableCell>批次号</TableCell>
@@ -188,10 +188,10 @@ export default function Inventory() {
                 <TableBody>
                   {paged.map((l) => (
                     <TableRow key={l.id} hover>
-                      <TableCell sx={{ fontFamily: 'monospace' }}>{l.id}</TableCell>
-                      <TableCell sx={{ fontFamily: 'monospace' }}>{l.accessionId}</TableCell>
+                      <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{l.id}</TableCell>
+                      <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{l.accessionId}</TableCell>
                       <TableCell>{l.storageType}</TableCell>
-                      <TableCell>{`${l.room}/${l.cabinet}/${l.layer}/${l.position}`}</TableCell>
+                      <TableCell sx={{ whiteSpace: 'nowrap' }}>{`${l.room}/${l.cabinet}/${l.layer}/${l.position}`}</TableCell>
                       <TableCell align="right">
                         {l.quantity.toLocaleString()} {l.unit}
                       </TableCell>
@@ -200,11 +200,11 @@ export default function Inventory() {
                         {l.pureLiveSeed.toLocaleString()}
                       </TableCell>
                       <TableCell align="right">{l.moisture}%</TableCell>
-                      <TableCell>{l.storedAt}</TableCell>
+                      <TableCell sx={{ whiteSpace: 'nowrap' }}>{l.storedAt}</TableCell>
                       <TableCell>
                         <StatusChip label={l.status} />
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
                         <Stack direction="row" spacing={0.5} justifyContent="flex-end">
                           <Button size="small" startIcon={<OutIcon />} onClick={() => { setActive(l); setOutQty(0); setOutOpen(true) }}>
                             出库

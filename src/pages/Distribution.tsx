@@ -167,7 +167,7 @@ export default function Distribution() {
           <Tab label={`已驳回 (${rows.filter((r) => r.status === '已驳回').length})`} />
         </Tabs>
         <TableContainer>
-          <Table size="small">
+          <Table size="small" sx={{ minWidth: 1180 }}>
             <TableHead>
               <TableRow>
                 <TableCell>申请单号</TableCell>
@@ -188,14 +188,14 @@ export default function Distribution() {
                 const progress = progressOf(r)
                 return (
                   <TableRow key={r.id} hover>
-                    <TableCell sx={{ fontFamily: 'monospace' }}>{r.id}</TableCell>
-                    <TableCell sx={{ fontFamily: 'monospace' }}>{r.accessionId}</TableCell>
-                    <TableCell sx={{ fontFamily: 'monospace' }}>{r.lotId}</TableCell>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{r.id}</TableCell>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{r.accessionId}</TableCell>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{r.lotId}</TableCell>
                     <TableCell>{r.applicant}</TableCell>
                     <TableCell>{r.organization}</TableCell>
                     <TableCell align="right">{r.quantity}</TableCell>
                     <TableCell>{r.purpose}</TableCell>
-                    <TableCell>{r.appliedAt}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{r.appliedAt}</TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={1} alignItems="center">
                         <Stack direction="row" spacing={0.5}>
@@ -209,7 +209,7 @@ export default function Distribution() {
                     <TableCell>
                       <StatusChip label={r.status} />
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
                       <Stack direction="row" spacing={0.5} justifyContent="flex-end">
                         <Button size="small" startIcon={<RecordIcon />} onClick={() => setRecordTarget(r)}>
                           审批记录

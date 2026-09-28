@@ -410,12 +410,24 @@ export default function Login() {
                   {loginError}
                 </Alert>
               )}
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap', whiteSpace: 'nowrap', gap: 2 }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: { xs: 'stretch', sm: 'center' },
+                  justifyContent: 'space-between',
+                  gap: 2,
+                }}
+              >
                 <FormControlLabel
                   control={<Checkbox checked={remember} onChange={(e) => setRemember(e.target.checked)} size="small" />}
                   label={<Typography variant="body2" color="text.secondary" sx={{ whiteSpace: 'nowrap' }}>记住我</Typography>}
                 />
-                <Button type="submit" variant="contained" sx={{ flexShrink: 0, whiteSpace: 'nowrap', px: 5, letterSpacing: '0.3em', pl: '1.9rem' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ flexShrink: 0, whiteSpace: 'nowrap', px: 5, letterSpacing: '0.3em', pl: '1.9rem', width: { xs: '100%', sm: 'auto' } }}
+                >
                   登 录
                 </Button>
               </Box>
@@ -432,10 +444,10 @@ export default function Login() {
                 <Table
                   size="small"
                   sx={{
-                    tableLayout: 'fixed',
+                    tableLayout: { xs: 'auto', sm: 'fixed' },
                     width: '100%',
                     '& td, & th': { border: 0, textAlign: 'center', fontSize: 12.5, px: 1, py: 1.25 },
-                    '& .MuiTableHead-cell': { bgcolor: '#f4faf6', fontWeight: 600 },
+                    '& .MuiTableCell-head': { bgcolor: '#f4faf6', fontWeight: 600 },
                   }}
                 >
                   <TableHead>
@@ -527,7 +539,7 @@ export default function Login() {
                   ))}
                 </TextField>
               </Box>
-              <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
                 <Box>
                   <FieldLabel text="密码" />
                   <TextField
@@ -567,7 +579,16 @@ export default function Login() {
                   {regError}
                 </Alert>
               )}
-              <Box sx={{ mt: 2.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap', whiteSpace: 'nowrap', gap: 2 }}>
+              <Box
+                sx={{
+                  mt: 2.5,
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: { xs: 'stretch', sm: 'center' },
+                  justifyContent: 'space-between',
+                  gap: 2,
+                }}
+              >
                 <FormControlLabel
                   control={<Checkbox checked={agreed} onChange={(e) => setAgreed(e.target.checked)} size="small" />}
                   label={
@@ -576,7 +597,11 @@ export default function Login() {
                     </Typography>
                   }
                 />
-                <Button type="submit" variant="contained" sx={{ flexShrink: 0, whiteSpace: 'nowrap', px: 5, letterSpacing: '0.3em', pl: '1.9rem' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ flexShrink: 0, whiteSpace: 'nowrap', px: 5, letterSpacing: '0.3em', pl: '1.9rem', width: { xs: '100%', sm: 'auto' } }}
+                >
                   注 册
                 </Button>
               </Box>

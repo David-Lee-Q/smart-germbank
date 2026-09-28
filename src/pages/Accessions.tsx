@@ -158,7 +158,7 @@ export default function Accessions() {
 
       <Card>
         <TableContainer>
-          <Table size="small">
+          <Table size="small" sx={{ minWidth: 1040 }}>
             <TableHead>
               <TableRow>
                 <TableCell>种质编号</TableCell>
@@ -176,7 +176,7 @@ export default function Accessions() {
             <TableBody>
               {paged.map((a) => (
                 <TableRow key={a.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{a.id}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{a.id}</TableCell>
                   <TableCell>{a.name}</TableCell>
                   <TableCell>{a.crop}</TableCell>
                   <TableCell sx={{ fontStyle: 'italic' }}>{a.scientificName}</TableCell>
@@ -187,7 +187,7 @@ export default function Accessions() {
                   <TableCell>
                     <StatusChip label={a.status} />
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
                     <Stack direction="row" spacing={0.5} justifyContent="flex-end">
                       <Button size="small" onClick={() => navigate(`/accessions/${a.id}`)}>
                         详情
@@ -228,13 +228,13 @@ export default function Accessions() {
             <Grid item xs={12} md={6}>
               <TextField fullWidth size="small" required label="学名" value={form.scientificName} onChange={(e) => setForm({ ...form, scientificName: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" label="科" value={form.family} onChange={(e) => setForm({ ...form, family: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" label="属" value={form.genus} onChange={(e) => setForm({ ...form, genus: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField select fullWidth size="small" label="作物" value={form.crop} onChange={(e) => setForm({ ...form, crop: e.target.value })}>
                 {cropOptions.map((c) => (
                   <MenuItem key={c} value={c}>
@@ -243,7 +243,7 @@ export default function Accessions() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField select fullWidth size="small" label="来源类型" value={form.sourceType} onChange={(e) => setForm({ ...form, sourceType: e.target.value })}>
                 {sourceTypeOptions.map((s) => (
                   <MenuItem key={s} value={s}>
@@ -252,19 +252,19 @@ export default function Accessions() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" label="国家" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" label="省/地区" value={form.region} onChange={(e) => setForm({ ...form, region: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" label="采集人" value={form.collector} onChange={(e) => setForm({ ...form, collector: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField fullWidth size="small" type="date" label="采集日期" InputLabelProps={{ shrink: true }} value={form.collectedAt} onChange={(e) => setForm({ ...form, collectedAt: e.target.value })} />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <TextField select fullWidth size="small" label="保存类型" value={form.storageType} onChange={(e) => setForm({ ...form, storageType: e.target.value })}>
                 {storageTypeOptions.map((s) => (
                   <MenuItem key={s} value={s}>

@@ -21,6 +21,27 @@ const theme = createTheme({
     button: { textTransform: 'none', fontWeight: 600 },
   },
   components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          '@media (max-width:600px)': { margin: 12, width: 'calc(100% - 24px)' },
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: { '@media (max-width:600px)': { padding: 16 } },
+      },
+    },
+    MuiTablePagination: {
+      styleOverrides: {
+        toolbar: { flexWrap: 'wrap', rowGap: 4 },
+        selectLabel: { '@media (max-width:600px)': { display: 'none' } },
+        input: { '@media (max-width:600px)': { display: 'none' } },
+        displayedRows: { '@media (max-width:600px)': { marginLeft: 'auto', whiteSpace: 'nowrap' } },
+        actions: { '@media (max-width:600px)': { marginLeft: 0 } },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: { border: '1px solid #e4ece7', boxShadow: '0 1px 3px rgba(16,40,28,0.04)' },

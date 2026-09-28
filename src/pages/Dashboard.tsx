@@ -136,7 +136,7 @@ export default function Dashboard() {
             <CardHeader title="活力率分布" titleTypographyProps={{ variant: 'subtitle1' }} />
             <Divider />
             <CardContent>
-              <Stack direction="row" spacing={1} sx={{ mb: 1.5 }}>
+              <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap" sx={{ mb: 1.5 }}>
                 {stats.storageDistribution.map((s) => (
                   <Chip key={s.name} size="small" label={`${s.name} ${s.value}`} variant="outlined" />
                 ))}

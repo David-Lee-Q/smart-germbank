@@ -155,19 +155,19 @@ export default function Regeneration() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" type="number" label="计划数量" value={form.plannedQuantity} onChange={(e) => setForm({ ...form, plannedQuantity: Number(e.target.value) })} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" label="地块" value={form.plot} onChange={(e) => setForm({ ...form, plot: e.target.value })} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" label="负责人" value={form.owner} onChange={(e) => setForm({ ...form, owner: e.target.value })} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" type="date" label="播种日期" InputLabelProps={{ shrink: true }} value={form.sowingDate} onChange={(e) => setForm({ ...form, sowingDate: e.target.value })} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" type="date" label="预计收获" InputLabelProps={{ shrink: true }} value={form.expectedHarvest} onChange={(e) => setForm({ ...form, expectedHarvest: e.target.value })} />
             </Grid>
           </Grid>

@@ -13,6 +13,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Tabs,
@@ -51,36 +52,38 @@ export default function System() {
         <Divider />
 
         {tab === 0 && (
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>账号</TableCell>
-                <TableCell>姓名</TableCell>
-                <TableCell>角色</TableCell>
-                <TableCell>状态</TableCell>
-                <TableCell>最近登录</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((u) => (
-                <TableRow key={u.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{u.account}</TableCell>
-                  <TableCell>{u.name}</TableCell>
-                  <TableCell>
-                    <Stack direction="row" spacing={0.5}>
-                      {u.roles.map((r) => (
-                        <Chip key={r} size="small" label={r} variant="outlined" />
-                      ))}
-                    </Stack>
-                  </TableCell>
-                  <TableCell>
-                    <StatusChip label={u.status} />
-                  </TableCell>
-                  <TableCell>{u.lastLogin}</TableCell>
+          <TableContainer>
+            <Table size="small" sx={{ minWidth: 620 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>账号</TableCell>
+                  <TableCell>姓名</TableCell>
+                  <TableCell>角色</TableCell>
+                  <TableCell>状态</TableCell>
+                  <TableCell>最近登录</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {users.map((u) => (
+                  <TableRow key={u.id} hover>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{u.account}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{u.name}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={0.5} useFlexGap flexWrap="wrap">
+                        {u.roles.map((r) => (
+                          <Chip key={r} size="small" label={r} variant="outlined" />
+                        ))}
+                      </Stack>
+                    </TableCell>
+                    <TableCell>
+                      <StatusChip label={u.status} />
+                    </TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{u.lastLogin}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
 
         {tab === 1 && (
@@ -129,32 +132,34 @@ export default function System() {
         )}
 
         {tab === 3 && (
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>日志编号</TableCell>
-                <TableCell>操作人</TableCell>
-                <TableCell>动作</TableCell>
-                <TableCell>对象类型</TableCell>
-                <TableCell>对象标识</TableCell>
-                <TableCell>时间</TableCell>
-                <TableCell>IP</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {logs.slice(0, 40).map((l) => (
-                <TableRow key={l.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{l.id}</TableCell>
-                  <TableCell>{l.operator}</TableCell>
-                  <TableCell>{l.action}</TableCell>
-                  <TableCell>{l.objectType}</TableCell>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{l.objectId}</TableCell>
-                  <TableCell>{l.createdAt}</TableCell>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{l.ip}</TableCell>
+          <TableContainer>
+            <Table size="small" sx={{ minWidth: 880 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>日志编号</TableCell>
+                  <TableCell>操作人</TableCell>
+                  <TableCell>动作</TableCell>
+                  <TableCell>对象类型</TableCell>
+                  <TableCell>对象标识</TableCell>
+                  <TableCell>时间</TableCell>
+                  <TableCell>IP</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {logs.slice(0, 40).map((l) => (
+                  <TableRow key={l.id} hover>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{l.id}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{l.operator}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{l.action}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{l.objectType}</TableCell>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{l.objectId}</TableCell>
+                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{l.createdAt}</TableCell>
+                    <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{l.ip}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
       </Card>
     </Box>

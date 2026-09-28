@@ -124,7 +124,7 @@ export default function Alerts() {
 
       <Card>
         <TableContainer>
-          <Table size="small">
+          <Table size="small" sx={{ minWidth: 940 }}>
             <TableHead>
               <TableRow>
                 <TableCell>预警号</TableCell>
@@ -140,7 +140,7 @@ export default function Alerts() {
             <TableBody>
               {filtered.slice(0, 40).map((a) => (
                 <TableRow key={a.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{a.id}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{a.id}</TableCell>
                   <TableCell>
                     <Chip size="small" variant="outlined" label={a.type} />
                   </TableCell>
@@ -148,12 +148,12 @@ export default function Alerts() {
                     <StatusChip label={a.level} />
                   </TableCell>
                   <TableCell>{a.target}</TableCell>
-                  <TableCell sx={{ maxWidth: 380 }}>{a.description}</TableCell>
-                  <TableCell>{a.createdAt}</TableCell>
+                  <TableCell sx={{ maxWidth: { xs: 200, md: 380 } }}>{a.description}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{a.createdAt}</TableCell>
                   <TableCell>
                     <StatusChip label={a.status} />
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
                     <Stack direction="row" spacing={0.5} justifyContent="flex-end">
                       {a.status === '未处理' && (
                         <Button size="small" startIcon={<HandleIcon />} onClick={() => setStatusOf(a.id, '处理中')}>

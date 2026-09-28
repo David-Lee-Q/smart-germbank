@@ -77,7 +77,7 @@ export default function AccessionDetail() {
         title={acc.name}
         subtitle={`${acc.id} · ${acc.scientificName}`}
         action={
-          <Box sx={{ display: 'flex', gap: 1 }}>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             <Button startIcon={<BackIcon />} onClick={() => navigate('/accessions')}>
               返回
             </Button>
@@ -137,9 +137,9 @@ export default function AccessionDetail() {
           <Tab label="事件时间线" />
         </Tabs>
         <Divider />
-        <Box sx={{ p: tab === 4 ? 2 : 0 }}>
+        <Box sx={{ p: tab === 4 ? 2 : 0, overflowX: 'auto' }}>
           {tab === 0 && (
-            <Table size="small">
+            <Table size="small" sx={{ minWidth: 720 }}>
               <TableHead>
                 <TableRow>
                   <TableCell>批次号</TableCell>
@@ -169,7 +169,7 @@ export default function AccessionDetail() {
             </Table>
           )}
           {tab === 1 && (
-            <Table size="small">
+            <Table size="small" sx={{ minWidth: 780 }}>
               <TableHead>
                 <TableRow>
                   <TableCell>检测号</TableCell>
@@ -199,7 +199,7 @@ export default function AccessionDetail() {
             </Table>
           )}
           {tab === 2 && (
-            <Table size="small">
+            <Table size="small" sx={{ minWidth: 660 }}>
               <TableHead>
                 <TableRow>
                   <TableCell>繁育单号</TableCell>
@@ -227,7 +227,7 @@ export default function AccessionDetail() {
             </Table>
           )}
           {tab === 3 && (
-            <Table size="small">
+            <Table size="small" sx={{ minWidth: 680 }}>
               <TableHead>
                 <TableRow>
                   <TableCell>申请单号</TableCell>

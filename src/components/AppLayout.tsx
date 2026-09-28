@@ -142,8 +142,8 @@ export default function AppLayout() {
           <IconButton edge="start" onClick={() => setMobileOpen(true)} sx={{ mr: 1, display: { md: 'none' } }}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1, fontSize: 18 }}>
-            {current?.label ?? '种质资源库智能管理系统'}
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1, fontSize: 18, minWidth: 0 }}>
+            {current?.label ?? '种质资源库'}
           </Typography>
           <Tooltip title="预警中心">
             <IconButton onClick={() => navigate('/alerts')}>

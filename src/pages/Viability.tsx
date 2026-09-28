@@ -152,7 +152,7 @@ export default function Viability() {
 
       <Card>
         <TableContainer>
-          <Table size="small">
+          <Table size="small" sx={{ minWidth: 860 }}>
             <TableHead>
               <TableRow>
                 <TableCell>检测号</TableCell>
@@ -169,11 +169,11 @@ export default function Viability() {
             <TableBody>
               {paged.map((t) => (
                 <TableRow key={t.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{t.id}</TableCell>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{t.accessionId}</TableCell>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{t.lotId}</TableCell>
-                  <TableCell>{t.method}</TableCell>
-                  <TableCell>{`${t.replicates} × ${t.seedsPerReplicate}`}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{t.id}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{t.accessionId}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{t.lotId}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{t.method}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{`${t.replicates} × ${t.seedsPerReplicate}`}</TableCell>
                   <TableCell align="right">{t.germinated}</TableCell>
                   <TableCell align="right">
                     <Chip
@@ -182,8 +182,8 @@ export default function Viability() {
                       color={t.viabilityRate >= 0.85 ? 'success' : t.viabilityRate >= 0.75 ? 'warning' : 'error'}
                     />
                   </TableCell>
-                  <TableCell>{t.testedAt}</TableCell>
-                  <TableCell>{t.tester}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{t.testedAt}</TableCell>
+                  <TableCell sx={{ whiteSpace: 'nowrap' }}>{t.tester}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -219,7 +219,7 @@ export default function Viability() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField select fullWidth size="small" label="检测方法" value={form.method} onChange={(e) => setForm({ ...form, method: e.target.value as ViabilityTest['method'] })}>
                 {['发芽试验', 'TTC染色', '四唑染色'].map((m) => (
                   <MenuItem key={m} value={m}>
@@ -228,10 +228,10 @@ export default function Viability() {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
               <TextField fullWidth size="small" type="number" label="重复数" value={form.replicates} onChange={(e) => setForm({ ...form, replicates: Number(e.target.value) })} />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6} sm={3}>
               <TextField fullWidth size="small" type="number" label="每重复取样数" value={form.seedsPerReplicate} onChange={(e) => setForm({ ...form, seedsPerReplicate: Number(e.target.value) })} />
             </Grid>
             <Grid item xs={12}>
@@ -244,10 +244,10 @@ export default function Viability() {
                 onChange={(e) => setForm({ ...form, counts: e.target.value })}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" type="date" label="检测日期" InputLabelProps={{ shrink: true }} value={form.testedAt} onChange={(e) => setForm({ ...form, testedAt: e.target.value })} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <TextField fullWidth size="small" label="检测人" value={form.tester} onChange={(e) => setForm({ ...form, tester: e.target.value })} />
             </Grid>
             <Grid item xs={12}>

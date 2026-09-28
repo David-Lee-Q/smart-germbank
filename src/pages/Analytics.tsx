@@ -13,6 +13,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TextField,
@@ -232,8 +233,8 @@ export default function Analytics() {
       <Card>
         <CardHeader title="检索结果" titleTypographyProps={{ variant: 'subtitle1' }} />
         <Divider />
-        <Box sx={{ maxHeight: 420, overflow: 'auto' }}>
-          <Table size="small" stickyHeader>
+        <TableContainer sx={{ maxHeight: 420, overflowY: 'auto' }}>
+          <Table size="small" stickyHeader sx={{ minWidth: 820 }}>
             <TableHead>
               <TableRow>
                 <TableCell>种质编号</TableCell>
@@ -248,7 +249,7 @@ export default function Analytics() {
             <TableBody>
               {filtered.slice(0, 200).map((a) => (
                 <TableRow key={a.id} hover>
-                  <TableCell sx={{ fontFamily: 'monospace' }}>{a.id}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace', whiteSpace: 'nowrap' }}>{a.id}</TableCell>
                   <TableCell>{a.name}</TableCell>
                   <TableCell>{a.crop}</TableCell>
                   <TableCell sx={{ fontStyle: 'italic' }}>{a.scientificName}</TableCell>
@@ -266,7 +267,7 @@ export default function Analytics() {
               )}
             </TableBody>
           </Table>
-        </Box>
+        </TableContainer>
         <Box sx={{ p: 1.5 }}>
           <Typography variant="caption" color="text.secondary">
             共匹配 {filtered.length} 条，最多展示前 200 条
