@@ -180,22 +180,28 @@ export const api = {
   async createDistribution(payload: Record<string, unknown>): Promise<DistributionRequest> {
     return request<DistributionRequest>('/distributions', { method: 'POST', body: JSON.stringify(payload) })
   },
-  async approveDistribution(id: string, comment?: string): Promise<DistributionRequest> {
+  async approveDistribution(id: string, payload: { approver?: string; comment?: string }): Promise<DistributionRequest> {
     return request<DistributionRequest>(`/distributions/${encodeURIComponent(id)}/approve`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+  },
+  async rejectDistribution(id: string, payload: { approver?: string; reason: string }): Promise<DistributionRequest> {
+    return request<DistributionRequest>(`/distributions/${encodeURIComponent(id)}/reject`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+  },
+  async resubmitDistribution(id: string, comment?: string): Promise<DistributionRequest> {
+    return request<DistributionRequest>(`/distributions/${encodeURIComponent(id)}/resubmit`, {
       method: 'POST',
       body: JSON.stringify({ comment }),
     })
   },
-  async rejectDistribution(id: string, reason: string): Promise<DistributionRequest> {
-    return request<DistributionRequest>(`/distributions/${encodeURIComponent(id)}/reject`, {
-      method: 'POST',
-      body: JSON.stringify({ reason }),
-    })
-  },
-  async shipDistribution(id: string): Promise<{ distribution: DistributionRequest; lot: InventoryLot }> {
+  async shipDistribution(id: string, payload?: { approver?: string; comment?: string }): Promise<{ distribution: DistributionRequest; lot: InventoryLot }> {
     return request<{ distribution: DistributionRequest; lot: InventoryLot }>(`/distributions/${encodeURIComponent(id)}/ship`, {
       method: 'POST',
-      body: JSON.stringify({}),
+      body: JSON.stringify(payload ?? {}),
     })
   },
 

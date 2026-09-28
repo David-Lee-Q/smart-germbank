@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   AppBar,
   Avatar,
@@ -30,8 +30,10 @@ import {
   AdminPanelSettings as AdminIcon,
   Menu as MenuIcon,
   NotificationsNone as BellIcon,
+  Logout as LogoutIcon,
 } from '@mui/icons-material'
 import { api } from '../data/api'
+import { getSession, logout } from '../data/auth'
 
 const drawerWidth = 232
 
@@ -72,6 +74,11 @@ export default function AppLayout() {
       clearInterval(timer)
     }
   }, [location.pathname])
+
+  const session = getSession()
+  if (!session) {
+    return <Navigate to="/login" replace />
+  }
 
   const drawer = (
     <Box sx={{ height: '100%', bgcolor: '#0f2e21', color: '#d7e6de' }}>
@@ -146,16 +153,26 @@ export default function AppLayout() {
             </IconButton>
           </Tooltip>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 2 }}>
-            <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}>管</Avatar>
+            <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 14 }}>{session.name.slice(0, 1)}</Avatar>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.1 }}>
-                系统管理员
+                {session.name}
               </Typography>
               <Typography variant="caption" color="text.secondary">
-                国家种质资源库
+                {session.role}
               </Typography>
             </Box>
           </Box>
+          <Tooltip title="退出登录">
+            <IconButton
+              onClick={() => {
+                logout()
+                navigate('/login')
+              }}
+            >
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
 

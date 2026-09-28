@@ -90,6 +90,20 @@ export function migrate(db: DB): void {
       review_comment TEXT
     );
 
+    CREATE TABLE IF NOT EXISTS distribution_approvals (
+      id TEXT PRIMARY KEY,
+      distribution_id TEXT NOT NULL REFERENCES distributions(id),
+      round INTEGER NOT NULL DEFAULT 1,
+      seq INTEGER NOT NULL,
+      node_name TEXT NOT NULL,
+      role TEXT NOT NULL,
+      approver TEXT NOT NULL,
+      comment TEXT,
+      status TEXT NOT NULL,
+      acted_at TEXT,
+      UNIQUE (distribution_id, round, seq)
+    );
+
     CREATE TABLE IF NOT EXISTS storage_rooms (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,

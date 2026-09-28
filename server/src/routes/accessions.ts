@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { z } from 'zod'
 import type { DB } from '../db.js'
 import { toAccession, toDistribution, toLot, toRegeneration, toViabilityTest } from '../lib/mappers.js'
+import { withDistributionApprovals } from './distribution.js'
 import { nextId, today, writeAudit } from '../lib/util.js'
 import { DomainError } from '../lib/calc.js'
 
@@ -182,7 +183,7 @@ export function accessionRoutes(db: DB): Router {
 
   router.get('/:id/distributions', (req, res) => {
     const rows = db.prepare('SELECT * FROM distributions WHERE accession_id = ? ORDER BY applied_at DESC').all(req.params.id)
-    res.json(rows.map((r) => toDistribution(r as Record<string, unknown>)))
+    res.json(withDistributionApprovals(db, rows.map((r) => toDistribution(r as Record<string, unknown>))))
   })
 
   router.get('/:id/timeline', (req, res) => {

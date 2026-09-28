@@ -82,7 +82,10 @@ describe('端到端业务闭环', () => {
     })
     expect(apply.status).toBe(201)
     const distId: string = apply.body.id
-    expect((await request(app).post(`/api/distributions/${distId}/approve`).send({})).body.status).toBe('已批准')
+    const first = await request(app).post(`/api/distributions/${distId}/approve`).send({})
+    expect(first.body.status).toBe('待审批')
+    const second = await request(app).post(`/api/distributions/${distId}/approve`).send({})
+    expect(second.body.status).toBe('已批准')
     const ship = await request(app).post(`/api/distributions/${distId}/ship`).send({})
     expect(ship.status).toBe(200)
     expect(ship.body.distribution.status).toBe('已分发')

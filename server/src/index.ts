@@ -10,8 +10,9 @@ const db = createDb(dbPath)
 seed(db)
 
 const port = Number(process.env.PORT ?? 3001)
+const host = process.env.HOST ?? '0.0.0.0'
 const app = createApp(db)
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`[germplasm-server] listening on http://0.0.0.0:${port}`)
+app.listen(port, host, () => {
+  console.log(`[germplasm-server] listening on http://${host}:${port}`)
 })

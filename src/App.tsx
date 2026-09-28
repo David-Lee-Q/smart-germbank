@@ -13,12 +13,14 @@ import Analytics from './pages/Analytics'
 import Environment from './pages/Environment'
 import Alerts from './pages/Alerts'
 import System from './pages/System'
+import Login from './pages/Login'
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<AppLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/accessions" element={<Accessions />} />

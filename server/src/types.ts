@@ -74,6 +74,20 @@ export interface Regeneration {
   actualHarvest: number | null
 }
 
+export type ApprovalNodeStatus = '已提交' | '待处理' | '已通过' | '已驳回' | '已终止'
+
+export interface ApprovalNode {
+  id: string
+  round: number
+  seq: number
+  nodeName: string
+  role: string
+  approver: string
+  comment: string | null
+  status: ApprovalNodeStatus
+  actedAt: string | null
+}
+
 export interface DistributionRequest {
   id: string
   accessionId: string
@@ -85,6 +99,7 @@ export interface DistributionRequest {
   status: DistributionStatus
   appliedAt: string
   reviewComment: string | null
+  approvals?: ApprovalNode[]
 }
 
 export interface StorageRoom {

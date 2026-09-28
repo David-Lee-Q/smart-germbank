@@ -59,3 +59,13 @@ Agent 在任务执行过程中发现的条目应遵循以下格式：
 - Category: 工作流协作
 - Instructions:
   - PRD 与技术设计文档位于 `.cosmocode/specs/{FEATURE_NAME}/`，本系统为 `.cosmocode/specs/germplasm-resource-management/`
+
+[服务启停与端口绑定约束]
+- Date: 2026-09-28
+- Context: Agent 在部署预览与联调分发审批功能时发现
+- Category: 运维部署
+- Instructions:
+  - 生产模式启停：`bash /workspace/start.sh`（幂等，已启动直接返回 0）、`bash /workspace/stop.sh`（用 `ss` 提取 PID 后 kill，禁用 fuser/lsof、禁用 `2>/dev/null`）
+  - 生产模式 = 前端 `vite preview`（5173）+ 后端 `node dist/index.js`（3001）；改前端必须 `npm run build` 后重启（无 HMR），改后端须 `npm --prefix server run build` 后重启
+  - 后端必须监听 `0.0.0.0:3001`：平台守护进程从容器内网 IP 对 3001 做 TCP 健康检查，若改为绑定 `127.0.0.1` 会反复触发"进程恢复"异常，预览不可隐藏 3001 端口
+  - 数据库文件 `/workspace/server/data/germplasm.db`，可用 `DB_PATH` 覆盖；`node:sqlite` 为实验特性，运行时告警可忽略

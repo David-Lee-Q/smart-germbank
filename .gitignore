@@ -40,6 +40,9 @@ server/data/
 *.db
 *.db-journal
 
+# Local runtime state (pid/log files)
+.run/
+
 # Environment & secrets
 .env
 .env.*

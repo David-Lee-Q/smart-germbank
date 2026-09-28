@@ -1,6 +1,7 @@
 import type {
   Accession,
   Alert,
+  ApprovalNode,
   AuditLog,
   DistributionRequest,
   EnvReading,
@@ -91,6 +92,18 @@ export const toDistribution = (r: Row): DistributionRequest => ({
   status: r.status as DistributionRequest['status'],
   appliedAt: r.applied_at as string,
   reviewComment: (r.review_comment as string | null) ?? null,
+})
+
+export const toApprovalNode = (r: Row): ApprovalNode => ({
+  id: r.id as string,
+  round: r.round as number,
+  seq: r.seq as number,
+  nodeName: r.node_name as string,
+  role: r.role as string,
+  approver: r.approver as string,
+  comment: (r.comment as string | null) ?? null,
+  status: r.status as ApprovalNode['status'],
+  actedAt: (r.acted_at as string | null) ?? null,
 })
 
 export const toRoom = (r: Row): StorageRoom => ({

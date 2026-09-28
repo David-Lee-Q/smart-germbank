@@ -47,9 +47,51 @@ const TESTERS = ['吴迪', '郑爽', '冯磊', '许晴']
 const OWNERS = ['钱进', '马丽', '朱峰', '胡兵']
 const ORGS = ['中国农业科学院', '某省农业科学院', '某农业大学', '某种业股份有限公司', '国家种质资源库']
 
+export function backfillDistributionApprovals(db: DB): void {
+  const dists = db.prepare('SELECT * FROM distributions').all() as Record<string, unknown>[]
+  if (dists.length === 0) return
+  const has = db.prepare('SELECT COUNT(*) AS c FROM distribution_approvals WHERE distribution_id = ?')
+  const ins = db.prepare(
+    `INSERT INTO distribution_approvals (id,distribution_id,round,seq,node_name,role,approver,comment,status,acted_at)
+     VALUES (?,?,?,?,?,?,?,?,?,?)`,
+  )
+  let seq = 0
+  for (const d of dists) {
+    const distId = d.id as string
+    if (((has.get(distId) as { c: number }).c) > 0) continue
+    const t = d.applied_at as string
+    const applicant = d.applicant as string
+    const comment = (d.review_comment as string | null) ?? null
+    const put = (s: number, name: string, role: string, approver: string, cmt: string | null, status: string, at: string | null) => {
+      ins.run(`AP-BF-${distId}-${seq++}`, distId, 1, s, name, role, approver, cmt, status, at)
+    }
+    put(0, '申请提交', '申请人', applicant, null, '已提交', t)
+    if (d.status === '待审批') {
+      put(1, '库管员初审', '库管员', '张伟', null, '待处理', null)
+      put(2, '库负责人审批', '库负责人', '王强', null, '待处理', null)
+      put(3, '分发执行', '库管员', '张伟', null, '待处理', null)
+    } else if (d.status === '已批准') {
+      put(1, '库管员初审', '库管员', '张伟', '同意初审', '已通过', t)
+      put(2, '库负责人审批', '库负责人', '王强', comment ?? '同意分发', '已通过', t)
+      put(3, '分发执行', '库管员', '张伟', null, '待处理', null)
+    } else if (d.status === '已分发') {
+      put(1, '库管员初审', '库管员', '张伟', '同意初审', '已通过', t)
+      put(2, '库负责人审批', '库负责人', '王强', comment ?? '同意分发', '已通过', t)
+      put(3, '分发执行', '库管员', '张伟', '已执行分发', '已通过', t)
+    } else if (d.status === '已驳回') {
+      put(1, '库管员初审', '库管员', '张伟', comment ?? '驳回', '已驳回', t)
+      put(2, '库负责人审批', '库负责人', '王强', null, '已终止', null)
+      put(3, '分发执行', '库管员', '张伟', null, '已终止', null)
+    }
+  }
+}
+
 export function seed(db: DB): void {
   const count = (db.prepare('SELECT COUNT(*) AS c FROM accessions').get() as { c: number }).c
-  if (count > 0) return
+  if (count > 0) {
+    backfillDistributionApprovals(db)
+    return
+  }
 
   const rnd = mulberry32(20260923)
   const pick = <T,>(arr: T[]): T => arr[Math.floor(rnd() * arr.length)]
@@ -312,4 +354,5 @@ export function seed(db: DB): void {
     db.exec('ROLLBACK')
     throw e
   }
+  backfillDistributionApprovals(db)
 }

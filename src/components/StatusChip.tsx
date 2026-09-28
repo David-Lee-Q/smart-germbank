@@ -26,6 +26,10 @@ const COLOR_MAP: Record<string, 'default' | 'primary' | 'secondary' | 'success' 
   停用: 'default',
   已驳回: 'error',
   收获: 'primary',
+  已提交: 'info',
+  待处理: 'warning',
+  已通过: 'success',
+  已终止: 'default',
 }
 
 export default function StatusChip({ label, size = 'small' }: { label: string; size?: 'small' | 'medium' }) {
