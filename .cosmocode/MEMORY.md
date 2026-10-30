@@ -69,3 +69,12 @@ Agent 在任务执行过程中发现的条目应遵循以下格式：
   - 生产模式 = 前端 `vite preview`（5173）+ 后端 `node dist/index.js`（3001）；改前端必须 `npm run build` 后重启（无 HMR），改后端须 `npm --prefix server run build` 后重启
   - 后端必须监听 `0.0.0.0:3001`：平台守护进程从容器内网 IP 对 3001 做 TCP 健康检查，若改为绑定 `127.0.0.1` 会反复触发"进程恢复"异常，预览不可隐藏 3001 端口
   - 数据库文件 `/workspace/server/data/germplasm.db`，可用 `DB_PATH` 覆盖；`node:sqlite` 为实验特性，运行时告警可忽略
+
+[文档截图与 docx 生成环境]
+- Date: 2026-10-30
+- Context: Agent 生成源程序文档与使用说明书时发现
+- Category: 环境配置
+- Instructions:
+  - Playwright Chromium 首次使用会因缺系统库启动失败（exitCode 127），先执行 `DEBIAN_FRONTEND=noninteractive python3 -m playwright install-deps chromium`
+  - 页面截图免登录方式：`context.add_init_script` 写入 `localStorage.setItem('germplasm.session', JSON.stringify({account,name,role}))`，再直接访问业务路由
+  - docx 生成使用 python-docx 1.2.0，页眉页脚页码与目录 TOC 域需用 `OxmlElement` 手工构造；目录依赖 Word/WPS 打开时更新域（已在 settings 中设 `updateFields=true`）
